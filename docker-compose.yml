@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+
+  dirvish:
+    build: .
+    image: servercontainers/dirvish
+    restart: always
+    environment:
+      MAIL_RECIPIENTS: "admin@your.tld"
+      CRONTIME: "30 2 * * *"
+    volumes:
+      - ./config:/config
+      - ./backups:/backups
+    networks:
+      - dirvish
+
+networks:
+  dirvish:
+    driver: bridge
