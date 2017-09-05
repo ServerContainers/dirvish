@@ -1,11 +1,8 @@
 #!/bin/bash
 
-if [ ! -z "$1" ]; then
-  DATE="$1"
-else
-  DATE=$(date +%Y%m%d)
-fi
-HUMAN_READABLE_DATE=$(date -ud "$DATE" +'%Y-%m-%d')
+#
+# FUNCTIONS
+#
 
 calculate_time_difference() {
   date_1="$1"
@@ -31,16 +28,45 @@ human_readable_bytes() {
 
 get_dirvish_option() {
   option=$1
-  cat /etc/dirvish/master.conf | sed 's/#.*//g' | sed -n '/'"$option"':/,/^\w/p' | sed -e '/^\w/d' -e '/^$/d' -e 's/[ \t][ \t]*//g' -e 's/[ \t][ \t].*$//g'
+  cat /etc/dirvish/master.conf | sed 's/#.*//g' | sed -n '/'"$option"':/,/^\w/p' | sed -e '/^\w/d' -e '/^$/d' -e 's/[ \t][ \t]*//g' -e 's/[ \t][ \t].*$//g' | tr '\n' ' '
 }
 
-BANKS=$(get_dirvish_option bank)
-RUNALL=$(get_dirvish_option Runall)
+#
+# SETUP
+#
+
+if [ ! -z "$1" ]; then
+  DATE="$1"
+else
+  DATE=$(date +%Y%m%d)
+fi
+HUMAN_READABLE_DATE=$(date -ud "$DATE" +'%Y-%m-%d')
+
+#
+# COLLECT
+#
+
+BANKS=`get_dirvish_option bank`
+RUNALLS=`get_dirvish_option Runall`
+
+BACKUP_PATHS=""
+
+for BANK in $BANKS; do
+  for RUNALL in $RUNALLS; do
+    CUR_DIR=$(ls -d $BANK/$RUNALL/$DATE* 2>/dev/null)
+    if [ -d "$CUR_DIR" ]; then
+      BACKUP_PATHS="$BACKUP_PATHS $CUR_DIR"
+    fi
+  done
+done
 
 FS_USAGE_PERCENT=$(df -h /backups | grep '/backups$' | awk '{print $5}' | sed 's/%//g')
-NUMBER_OF_BACKUPS=$(find /backups -mindepth 3 -maxdepth 3 -type d ! -name "dirvish" -iname $DATE\* | wc -l)
-NON_SUCCESS_STATUS=$(find /backups -mindepth 3 -maxdepth 3 -type d ! -name "dirvish" -iname $DATE\* | sed 's/$/\/summary/g' | sed 's/^/cat /g' | bash | grep 'Status:' | sed 's/^[^:]*: //g' | uniq | grep -v success | tr '\n' ' ')
+NUMBER_OF_BACKUPS=$(echo "$BACKUP_PATHS" | tr ' ' '\n' | grep . | wc -l)
+NON_SUCCESS_STATUS=$(echo "$BACKUP_PATHS" | tr ' ' '\n' | grep . | sed 's/$/\/summary/g' | sed 's/^/cat /g' | bash | grep 'Status:' | sed 's/^[^:]*: //g' | uniq | grep -v success | tr '\n' ' ')
 
+#
+# REPORT
+#
 
 echo "dirvish report - $HUMAN_READABLE_DATE"
 
@@ -63,8 +89,7 @@ echo ""
 
 printf "%-30s\t%-20s\t%-20s\t%-20s\t%-20s\t%s\n" "[BACKUP NAME]" "[BACKUP STATUS]" "[DATA RECEIVED]" "[BACKUP RUNTIME]" "[BACKUP BEGIN]" "[BACKUP END]"
 
-find /backups -mindepth 3 -maxdepth 3 -type d ! -name "dirvish" -iname $DATE\* | while read BACKUP_PATH
-do
+for BACKUP_PATH in $BACKUP_PATHS; do
   BACKUP_NAME=$(dirname "$BACKUP_PATH" | sed 's/.*\///g')
   BACKUP_STATUS=$(cat "$BACKUP_PATH/summary" | grep 'Status:' | sed 's/^[^:]*: //g')
 
@@ -79,7 +104,6 @@ do
 
   printf "%-30s\t%-20s\t%-20s\t%-20s\t%-20s\t%s\n" "$BACKUP_NAME" "$BACKUP_STATUS" "$BACKUP_RECEIVED" "$BACKUP_RUNTIME" "$BACKUP_BEGIN" "$BACKUP_END"
 done
-
 
 echo ""
 
