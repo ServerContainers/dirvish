@@ -29,6 +29,9 @@ human_readable_bytes() {
   numfmt --to=iec-i --suffix=B --padding=7 "$bytes"
 }
 
+BANKS=$(cat config/master.conf | sed 's/#.*//g' | sed -n '/bank:/,/^\w/p' | sed -e '/^\w/d' -e '/^$/d')
+RUNALL=$(cat config/master.conf | sed 's/#.*//g' | sed -n '/Runall:/,/^\w/p' | sed -e '/^\w/d' -e '/^$/d')
+
 FS_USAGE_PERCENT=$(df -h /backups | grep '/backups$' | awk '{print $5}' | sed 's/%//g')
 NUMBER_OF_BACKUPS=$(find /backups -mindepth 3 -maxdepth 3 -type d ! -name "dirvish" -iname $DATE\* | wc -l)
 NON_SUCCESS_STATUS=$(find /backups -mindepth 3 -maxdepth 3 -type d ! -name "dirvish" -iname $DATE\* | sed 's/$/\/summary/g' | sed 's/^/cat /g' | bash | grep 'Status:' | sed 's/^[^:]*: //g' | uniq | grep -v success | tr '\n' ' ')
