@@ -29,8 +29,13 @@ human_readable_bytes() {
   numfmt --to=iec-i --suffix=B --padding=7 "$bytes"
 }
 
-BANKS=$(cat config/master.conf | sed 's/#.*//g' | sed -n '/bank:/,/^\w/p' | sed -e '/^\w/d' -e '/^$/d')
-RUNALL=$(cat config/master.conf | sed 's/#.*//g' | sed -n '/Runall:/,/^\w/p' | sed -e '/^\w/d' -e '/^$/d')
+get_dirvish_option() {
+  option=$1
+  cat /etc/dirvish/master.conf | sed 's/#.*//g' | sed -n '/'"$option"':/,/^\w/p' | sed -e '/^\w/d' -e '/^$/d' -e 's/[ \t][ \t]*//g' -e 's/[ \t][ \t].*$//g'
+}
+
+BANKS=$(get_dirvish_option bank)
+RUNALL=$(get_dirvish_option Runall)
 
 FS_USAGE_PERCENT=$(df -h /backups | grep '/backups$' | awk '{print $5}' | sed 's/%//g')
 NUMBER_OF_BACKUPS=$(find /backups -mindepth 3 -maxdepth 3 -type d ! -name "dirvish" -iname $DATE\* | wc -l)
