@@ -16,4 +16,10 @@ else
   SUBJECT="dirvish-report: $NUMBER - $DATE"
 fi
 
+# erro specific subjects
+if echo "$REPORT" | grep 'ERROR' 2>/dev/null | grep 'missing backups' 2>/dev/null >/dev/null; then
+  MISSING_NUMBER=$(echo "$REPORT" | grep 'ERROR' | grep 'missing backups' | sed -e 's/ERROR: //g' -e 's/ missing.*//g' )
+  SUBJECT="dirvish-report: ERROR ($MISSING_NUMBER missing) $NUMBER - $DATE"
+fi
+
 echo "$REPORT" | mail -s "$SUBJECT" $MAIL_RECIPIENTS

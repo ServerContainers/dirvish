@@ -51,11 +51,20 @@ RUNALLS=`get_dirvish_option Runall`
 
 BACKUP_PATHS=""
 
+MISSING_BACKUP_NUMBER=0
+MISSING_BACKUPS=""
+
 for BANK in $BANKS; do
   for RUNALL in $RUNALLS; do
-    CUR_DIR=$(ls -d $BANK/$RUNALL/$DATE* 2>/dev/null)
+    CUR_DIR=$($BANK/$RUNALL)
+    CUR_BACKUP_DIR=$(ls -d $CUR_DIR/$DATE* 2>/dev/null)
     if [ -d "$CUR_DIR" ]; then
-      BACKUP_PATHS="$BACKUP_PATHS $CUR_DIR"
+      if [ -d "$CUR_BACKUP_DIR" ]; then
+        BACKUP_PATHS="$BACKUP_PATHS $CUR_BACKUP_DIR"
+      else
+        MISSING_BACKUP_NUMBER=$(expr $MISSING_BACKUP_NUMBER + 1)
+        MISSING_BACKUPS="$MISSING_BACKUPS $RUNALL"
+      fi
     fi
   done
 done
@@ -69,6 +78,12 @@ NON_SUCCESS_STATUS=$(echo "$BACKUP_PATHS" | tr ' ' '\n' | grep . | sed 's/$/\/su
 #
 
 echo "dirvish report - $HUMAN_READABLE_DATE"
+
+if [ ! -z "$MISSING_BACKUPS" ]; then
+  ERROR_MESSAGE_MBU="ERROR: $MISSING_BACKUP_NUMBER missing backups: $MISSING_BACKUPS"
+  echo ""
+  echo "$ERROR_MESSAGE_MBU"
+fi
 
 if [ ! -z "$NON_SUCCESS_STATUS" ]; then
   WARNING_MESSAGE_NSS="WARN: non success status: $NON_SUCCESS_STATUS"
