@@ -56,7 +56,7 @@ MISSING_BACKUPS=""
 
 for BANK in $BANKS; do
   for RUNALL in $RUNALLS; do
-    CUR_DIR=$($BANK/$RUNALL)
+    CUR_DIR="$BANK/$RUNALL"
     CUR_BACKUP_DIR=$(ls -d $CUR_DIR/$DATE* 2>/dev/null)
     if [ -d "$CUR_DIR" ]; then
       if [ -d "$CUR_BACKUP_DIR" ]; then
