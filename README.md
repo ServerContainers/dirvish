@@ -58,3 +58,8 @@ To connect to your hosts, you need to install a ssh keypair on them. This keypai
 To generate a keypair just execute `ssh-keygen -t rsa` and follow the instructions. You'll find your keypair beneath _~/.ssh_.
 
 Now install the public keys on the servers you want to backup, and the private key on this container.
+
+### Dirvish
+
+- Initialize new vault
+    - `time dirvish --init --vault name_of_vault`
