@@ -11,8 +11,8 @@ echo $TZ > /etc/timezon
 
 if [ ! -z "$STANDALONE" ]; then
   echo ">> standalone mode only"
+  service postfix start
   /etc/dirvish/dirvish-cronjob
-  service postfix start; sleep 5
   /usr/local/bin/dirvish-report.sh
   /usr/local/bin/dirvish-mailer.sh
   exit 0
