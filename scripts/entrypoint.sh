@@ -15,6 +15,9 @@ if [ ! -z "$STANDALONE" ]; then
   /etc/dirvish/dirvish-cronjob
   /usr/local/bin/dirvish-report.sh
   /usr/local/bin/dirvish-mailer.sh
+  echo ">> wait 5m for mails to sent out"
+  sleep 5m
+  echo ">> everything done - bye bye"
   exit 0
 fi
 
