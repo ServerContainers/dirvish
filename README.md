@@ -1,7 +1,12 @@
-# Docker Dirvish Backup System (servercontainers/dirvish)
-_maintained by ServerContainers_
+# Docker Dirvish Backup System (servercontainers/dirvish) [x86 + arm]
 
-[FAQ - All you need to know about the servercontainers Containers](https://marvin.im/docker-faq-all-you-need-to-know-about-the-marvambass-containers/)
+dirvish on debian
+
+## Changelogs
+
+* 2021-03-17
+    * multiarch build
+    * rewrite to debian:buster
 
 ## What is it
 
@@ -15,7 +20,7 @@ This Dockerfile (available as ___servercontainers/dirvish___) gives you a Dirvis
 
 For Configuration of the Server you use environment Variables and volume files.
 
-It's based on the [debian:jessie](https://registry.hub.docker.com/_/debian) Image
+It's based on the [debian](https://registry.hub.docker.com/_/debian) Image
 
 View in Docker Registry [servercontainers/dirvish](https://registry.hub.docker.com/u/servercontainers/dirvish/)
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if echo "$MAIL_RECIPIENTS" | grep -v '@' 2>/dev/null >/dev/null; then
-  echo "no recipients specified, exiting... (MAIL_RECIPIENTS)" | logger -t dirvish-mailer
+  echo "no recipients specified, exiting... (MAIL_RECIPIENTS)"
   exit 0
 fi
 
