@@ -1,6 +1,6 @@
 #!/bin/sh
 echo ">> copy config"
-cp /config/dirvish/master.conf /etc/dirvish/master.conf
+cp /container/config/dirvish/master.conf /etc/dirvish/master.conf
 
 echo ">> fix postfix"
 postconf -e "maillog_file = /dev/stdout"
