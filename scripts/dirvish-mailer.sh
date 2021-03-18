@@ -5,7 +5,7 @@ if echo "$MAIL_RECIPIENTS" | grep -v '@' 2>/dev/null >/dev/null; then
   exit 0
 fi
 
-REPORT=$(dirvish-report.sh)
+REPORT=$(/container/scripts/dirvish-report.sh)
 
 DATE=$(echo "$REPORT" | head -n1 | sed 's/.* - //g')
 NUMBER=$(echo "$REPORT" | grep 'Number of Backups:' | sed 's/^[^:]*: //g')
