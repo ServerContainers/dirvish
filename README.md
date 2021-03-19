@@ -4,6 +4,8 @@ dirvish on debian
 
 ## Changelogs
 
+* 2021-03-19
+    * configure return-address for status mail
 * 2021-03-17
     * multiarch build
     * rewrite to debian:buster
@@ -39,6 +41,15 @@ View in GitHub [ServerContainers/dirvish](https://github.com/ServerContainers/di
 - CRONTIME
     - overwrite default crontime with your one
     - default _30 4 * * *_
+
+- MAIL_RECIPIENTS
+    - list of mail addresses to recieve status mail after backup
+    - e.g.: `joe@company.tld admin@company.tld supervisor@company.tld`
+
+- RETURN_ADDRESS
+    - sender of status email
+    - default: `noreply@dirvish.backup.sys`
+    - e.g.: `noreply@backupsystem.company.tld`
 
 ## Volumes
 

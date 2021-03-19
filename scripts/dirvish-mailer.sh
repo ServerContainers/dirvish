@@ -5,6 +5,10 @@ if echo "$MAIL_RECIPIENTS" | grep -v '@' 2>/dev/null >/dev/null; then
   exit 0
 fi
 
+if [ -z "$RETURN_ADDRESS" ]; then
+  RETURN_ADDRESS="noreply@dirvish.backup.sys"
+fi
+
 REPORT=$(/container/scripts/dirvish-report.sh)
 
 DATE=$(echo "$REPORT" | head -n1 | sed 's/.* - //g')
@@ -22,4 +26,4 @@ if echo "$REPORT" | grep 'ERROR' 2>/dev/null | grep 'missing backups' 2>/dev/nul
   SUBJECT="dirvish-report: ERROR ($MISSING_NUMBER missing) $NUMBER - $DATE"
 fi
 
-echo "$REPORT" | mail -s "$SUBJECT" $MAIL_RECIPIENTS
+echo "$REPORT" | mail -s "$SUBJECT" -r "$RETURN_ADDRESS"  $MAIL_RECIPIENTS
