@@ -5,10 +5,6 @@ if echo "$MAIL_RECIPIENTS" | grep -v '@' 2>/dev/null >/dev/null; then
   exit 0
 fi
 
-if [ -z "$RETURN_ADDRESS" ]; then
-  RETURN_ADDRESS="noreply@dirvish.backup.sys"
-fi
-
 REPORT=$(/container/scripts/dirvish-report.sh)
 
 DATE=$(echo "$REPORT" | head -n1 | sed 's/.* - //g')

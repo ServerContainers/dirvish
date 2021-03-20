@@ -14,6 +14,13 @@ echo ">> setting timezone to $TZ"
 ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime
 echo "$TZ" > /etc/timezone
 
+
+if [ -z "$RETURN_ADDRESS" ]; then
+  RETURN_ADDRESS="noreply@dirvish.backup.sys"
+fi
+echo ">> setting return address to $RETURN_ADDRESS"
+
+
 if [ ! -z "$STANDALONE" ]; then
   echo ">> standalone mode only"
   /container/config/runit/postfix/run &
