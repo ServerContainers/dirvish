@@ -22,4 +22,7 @@ if echo "$REPORT" | grep 'ERROR' 2>/dev/null | grep 'missing backups' 2>/dev/nul
   SUBJECT="dirvish-report: ERROR ($MISSING_NUMBER missing) $NUMBER - $DATE"
 fi
 
-echo "$REPORT" | mail -s "$SUBJECT" -r "$RETURN_ADDRESS"  $MAIL_RECIPIENTS
+for M_R in $MAIL_RECIPIENTS; do
+  echo "sending report to $M_R"
+  echo "$REPORT" | mail -s "$SUBJECT" -r "$RETURN_ADDRESS"  "$M_R"
+done
