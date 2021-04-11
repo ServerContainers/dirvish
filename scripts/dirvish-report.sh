@@ -35,10 +35,13 @@ get_dirvish_option() {
 # SETUP
 #
 
+DIR_DATE_FMT=$(get_dirvish_option image-default)
+: ${DIR_DATE_FMT:=%Y%m%d}
+
 if [ ! -z "$1" ]; then
   DATE="$1"
 else
-  DATE=$(date +%Y%m%d)
+  DATE=$(date +${DIR_DATE_FMT})
 fi
 HUMAN_READABLE_DATE=$(date -ud "$DATE" +'%Y-%m-%d')
 
