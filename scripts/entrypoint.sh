@@ -1,6 +1,6 @@
 #!/bin/sh
 echo ">> copy config"
-cp /config/* /etc/dirvish/
+cp -r /config/* /etc/dirvish
 
 echo ">> fix postfix"
 postconf -e "maillog_file = /dev/stdout"
