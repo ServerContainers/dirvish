@@ -57,7 +57,7 @@ get_dirvish_option() {
 # SETUP
 #
 
-DIR_DATE_FMT=$(get_dirvish_option image-default)
+DIR_DATE_FMT=$(get_dirvish_option image-default | sed 's/%[HM]//g')
 : ${DIR_DATE_FMT:=%Y%m%d}
 
 if [ ! -z "$1" ]; then
