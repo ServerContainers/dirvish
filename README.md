@@ -4,6 +4,9 @@ dirvish on debian
 
 ## Changelogs
 
+* 2021-07-27
+    * fix how report fetches latest backup of the day
+    * fix `\r` windows linebreaks in `master.conf`
 * 2021-03-19
     * configure return-address for status mail
 * 2021-03-17

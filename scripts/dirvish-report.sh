@@ -57,7 +57,8 @@ get_dirvish_option() {
 # SETUP
 #
 
-DIR_DATE_FMT=$(get_dirvish_option image-default | sed 's/%[HM]//g')
+# sed is to remove time information - it should always only start with the date - with time, it won't fetch all results
+DIR_DATE_FMT=$(get_dirvish_option image-default | sed 's/%[HMIklNpPrRSTXz]//g')
 : ${DIR_DATE_FMT:=%Y%m%d}
 
 if [ ! -z "$1" ]; then
@@ -82,7 +83,7 @@ MISSING_BACKUPS=""
 for BANK in $BANKS; do
   for RUNALL in $RUNALLS; do
     CUR_DIR="$BANK/$RUNALL"
-    CUR_BACKUP_DIR=$(ls -d $CUR_DIR/$DATE* 2>/dev/null)
+    CUR_BACKUP_DIR=$(ls -td $CUR_DIR/$DATE* 2>/dev/null | head -n1)
     if [ -d "$CUR_DIR" ]; then
       if [ -d "$CUR_BACKUP_DIR" ]; then
         BACKUP_PATHS="$BACKUP_PATHS $CUR_BACKUP_DIR"
