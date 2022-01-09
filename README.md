@@ -4,7 +4,7 @@ dirvish on debian
 
 ## Versioning
 
-You'll find all images tagged like `d11.2-dv1.2.1-2` which means `d<debian version>-dv<dirvish version (with some esacped chars)>`.
+You'll find all images tagged like `d11.2-dv1.2.1-2.1` which means `d<debian version>-dv<dirvish version (with some esacped chars)>`.
 This way you can pin your installation/configuration to a certian version. or easily roll back if you experience any problems
 (don't forget to open a issue in that case ;D).
 
