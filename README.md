@@ -2,8 +2,21 @@
 
 dirvish on debian
 
+## Versioning
+
+You'll find all images tagged like `d11.2-dv1.2.1-2` which means `d<debian version>-dv<dirvish version (with some esacped chars)>`.
+This way you can pin your installation/configuration to a certian version. or easily roll back if you experience any problems
+(don't forget to open a issue in that case ;D).
+
+The `latest` version will be updated/released after I managed to test a new pinned version in my production environment.
+This way I can easily find and fix bugs without affecting any users. It will result in a way more stable container.
+
 ## Changelogs
 
+* 2022-01-09
+    * new build script
+    * version tagging
+    * update to debian `bullseye`
 * 2021-07-27
     * fix how report fetches latest backup of the day
     * fix `\r` windows linebreaks in `master.conf`

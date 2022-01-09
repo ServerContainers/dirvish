@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 ENV PATH="/container/scripts:${PATH}"
 
@@ -16,3 +16,4 @@ COPY . /container/
 
 VOLUME ["/config", "/backups"]
 ENTRYPOINT ["/container/scripts/entrypoint.sh"]
+CMD [ "/usr/bin/runsvdir","-P", "/container/config/runit" ]
