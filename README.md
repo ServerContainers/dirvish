@@ -1,18 +1,37 @@
-# Docker Dirvish Backup System (servercontainers/dirvish) [x86 + arm]
+# Docker Dirvish Backup System - build yourself container
 
 dirvish on debian
 
-## Versioning
+_currently tested on: x86_64, arm64, arm_
+
+## IMPORTANT!
+
+In March 2023 - Docker informed me that they are going to remove my 
+organizations `servercontainers` and `desktopcontainers` unless 
+I'm upgrading to a pro plan.
+
+I'm not going to do that. It's more of a professionally done hobby then a
+professional job I'm earning money with.
+
+In order to avoid bad actors taking over my org. names and publishing potenial
+backdoored containers, I'd recommend to switch over clone my github repos and
+build the containers yourself.
+
+## Build & Variants
+
+You can specify `DOCKER_REGISTRY` environment variable (for example `my.registry.tld`)
+and use the build script to build the main container and it's variants for _x86_64, arm64 and arm_
 
 You'll find all images tagged like `d11.2-dv1.2.1-2.1` which means `d<debian version>-dv<dirvish version (with some esacped chars)>`.
 This way you can pin your installation/configuration to a certian version. or easily roll back if you experience any problems
 (don't forget to open a issue in that case ;D).
 
-The `latest` version will be updated/released after I managed to test a new pinned version in my production environment.
-This way I can easily find and fix bugs without affecting any users. It will result in a way more stable container.
+To build a `latest` tag run `./build.sh release`
 
 ## Changelogs
 
+* 2023-03-19
+    * switched from docker hub to a build-yourself container
 * 2022-01-09
     * new build script
     * version tagging
@@ -39,10 +58,6 @@ This Dockerfile (available as ___servercontainers/dirvish___) gives you a Dirvis
 For Configuration of the Server you use environment Variables and volume files.
 
 It's based on the [debian](https://registry.hub.docker.com/_/debian) Image
-
-View in Docker Registry [servercontainers/dirvish](https://registry.hub.docker.com/u/servercontainers/dirvish/)
-
-View in GitHub [ServerContainers/dirvish](https://github.com/ServerContainers/dirvish)
 
 ## Environment variables
 

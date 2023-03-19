@@ -4,7 +4,7 @@ services:
 
   dirvish:
     build: .
-    image: servercontainers/dirvish
+    image: dirvish
     restart: always
     environment:
       MAIL_RECIPIENTS: "admin@your.tld"
