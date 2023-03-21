@@ -1,4 +1,4 @@
-# Docker Dirvish Backup System - build yourself container
+# Docker Dirvish Backup System - (ghcr.io/servercontainers/dirvish) [x86 + arm]
 
 dirvish on debian
 
@@ -14,8 +14,7 @@ I'm not going to do that. It's more of a professionally done hobby then a
 professional job I'm earning money with.
 
 In order to avoid bad actors taking over my org. names and publishing potenial
-backdoored containers, I'd recommend to switch over clone my github repos and
-build the containers yourself.
+backdoored containers, I'd recommend to switch over to my new github registry: `ghcr.io/servercontainers`.
 
 ## Build & Variants
 
@@ -30,6 +29,9 @@ To build a `latest` tag run `./build.sh release`
 
 ## Changelogs
 
+* 2023-03-20
+    * github action to build container
+    * implemented ghcr.io as new registry
 * 2023-03-19
     * switched from docker hub to a build-yourself container
 * 2022-01-09
@@ -58,6 +60,12 @@ This Dockerfile (available as ___servercontainers/dirvish___) gives you a Dirvis
 For Configuration of the Server you use environment Variables and volume files.
 
 It's based on the [debian](https://registry.hub.docker.com/_/debian) Image
+
+View in GitHub Registry [ghcr.io/servercontainers/dirvish](https://ghcr.io/servercontainers/dirvish)
+
+View in GitHub [ServerContainers/dirvish](https://github.com/ServerContainers/dirvish)
+
+_currently tested on: x86_64, arm64, arm_
 
 ## Environment variables
 
