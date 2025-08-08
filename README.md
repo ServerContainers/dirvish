@@ -30,7 +30,8 @@ To build a `latest` tag run `./build.sh release`
 ## Changelogs
 
 * 2025-08-08
-    * you can now use set `DISABLE_POSTFIX` to any value to prevent the internal mailserver from starting
+    * you can now use set `DISABLE_POSTFIX` to any value to prevent the internal mailserver (`postfix`) from starting
+    * smtp listening is now disabled - delivery works over postfix sendmail interface - no collisions in host network mode
 * 2023-03-20
     * github action to build container
     * implemented ghcr.io as new registry

@@ -10,7 +10,9 @@ RUN export DEBIAN_FRONTEND=noninteractive \
                           postfix \
                           mailutils \
  && apt-get -q -y clean \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+ \
+ && sed -i '0,/^smtp.*inet/ s/^smtp/#smtp/' /etc/postfix/master.cf
  
 COPY . /container/
 
