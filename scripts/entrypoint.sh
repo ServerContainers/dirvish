@@ -43,7 +43,7 @@ echo ">> setting return address to $RETURN_ADDRESS"
 
 if [ ! -z "$STANDALONE" ]; then
   echo ">> standalone mode only"
-  /container/config/runit/postfix/run &
+  [ -z "$DISABLE_POSTFIX" ] && /container/config/runit/postfix/run &
   /etc/dirvish/dirvish-cronjob
   /container/scripts/dirvish-report.sh
   /container/scripts/dirvish-mailer.sh
@@ -61,6 +61,10 @@ cat <<EOF > /etc/cron.d/dirvish
 $CRONTIME    root    /bin/bash -c "/etc/dirvish/dirvish-cronjob; . /etc/profile; export MAIL_RECIPIENTS='$MAIL_RECIPIENTS'; export RETURN_ADDRESS='$RETURN_ADDRESS'; /container/scripts/dirvish-mailer.sh"
 EOF
 
+if [ ! -z "$DISABLE_POSTFIX" ]; then
+  echo ">> disable postifx"
+  rm -rf /container/config/runit/postfix
+fi
 
 ##
 # CMD
