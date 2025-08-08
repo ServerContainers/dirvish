@@ -5,7 +5,7 @@ export DEBIAN_VERSION=$(docker run --rm -t "$IMG" cat /etc/debian_version | tail
 export DIRVISH_VERSION=$(docker run --rm -t "$IMG" dpkg --list dirvish | grep '^ii' | sed 's/^[^0-9]*//g' | cut -d ' ' -f1 | sed 's/[+=]/_/g' | tr -d '\r')
 [ -z "$DEBIAN_VERSION" ] && exit 1
 
-export IMGTAG=$(echo "$1""d$DEBIAN_VERSION-dv$DIRVISH_VERSION")
+export IMGTAG=$(echo "$1""d$DEBIAN_VERSION-dv$DIRVISH_VERSION-cv0.0.1")
 export IMAGE_EXISTS=$(docker pull "$IMGTAG" 2>/dev/null >/dev/null; echo $?)
 
 # return latest, if container is already available :)
