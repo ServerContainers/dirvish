@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:trixie
 
 ENV PATH="/container/scripts:${PATH}"
 
